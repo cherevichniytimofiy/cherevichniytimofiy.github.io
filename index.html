@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подорожі контр страйком</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --color-text: #000;
+            --color-background: #f5f5f5;
+            --color-navbar-bg: 	#27272a;
+            --color-white: #ffffff;
+            --color-primary: #8b5cf6;
+            --color-primary-dark: 	#7c3aed;
+            --color-error: 	#ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--color-text);
+            background-color: var(--color-background);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: var(--color-navbar-bg);
+            color: var(--color-white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo a {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--color-white);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--color-white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--color-primary);
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            background-color: var(--color-primary);
+            border: none;
+            border-radius: 5px;
+            color: var(--color-white);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--color-primary-dark);
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--color-white);
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        main {
+            padding: 2rem 5%;
+            min-height: calc(100vh - 150px);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://i.pinimg.com/736x/43/44/75/43447521000b3919cc8395f6f79f4160.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--color-white);
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            margin-bottom: 10px;
+        }
+
+        .cta-btn {
+            padding: 0.8rem 2rem;
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cta-btn:hover {
+            background-color: var(--color-primary-dark);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-card {
+            background: var(--color-white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .place-card {
+            background: var(--color-white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .place-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .place-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .place-card h2 {
+            padding: 1rem 1rem 0;
+        }
+
+        .place-card p {
+            padding: 0 1rem 1rem;
+        }
+
+        .read-more {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0 1rem 1rem;
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .read-more:hover {
+            background-color: var(--color-primary-dark);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-info,
+        .contact-form {
+            background: var(--color-white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info h2,
+        .contact-form h2 {
+            margin-bottom: 1rem;
+            color: var(--color-navbar-bg);
+        }
+
+        .contact-info p {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            padding: 0.8rem 2rem;
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .contact-form button:hover {
+            background-color: var(--color-primary-dark);
+        }
+
+        .contact-form input:invalid,
+        .contact-form textarea:invalid {
+            border-color: var(--color-error);
+        }
+
+        .social-links .social-icon {
+            display: inline-flex;
+            align-items: center;
+            margin: 0 10px 10px 0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-links .social-icon i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+
+        footer .social-links .social-icon {
+            color: var(--color-white);
+        }
+
+        footer .social-links .social-icon:hover {
+            color: var(--color-primary);
+        }
+
+        .contact-info .social-links .social-icon {
+            color: var(--color-navbar-bg);
+        }
+
+        .contact-info .social-links .social-icon:hover {
+            color: var(--color-primary);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--color-navbar-bg);
+            color: var(--color-white);
+        }
+
+        .social-links {
+            margin-bottom: 1rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: var(--color-white);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal h2 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .modal input:invalid {
+            border-color: var(--color-error);
+        }
+
+        .modal button {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .modal button:hover {
+            background-color: var(--color-primary-dark);
+        }
+
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px var(--color-text), 0 0 10px var(--color-text), 0 0 15px var(--color-primary-dark), 0 0 20px var(--color-primary-dark);
+            }
+
+            to {
+                text-shadow: 0 0 10px var(--color-text), 0 0 20px var(--color-text), 0 0 30px #000, 0 0 40px #000;
+            }
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--color-navbar-bg);
+        }
+
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: var(--color-navbar-bg);
+                width: 100%;
+                text-align: center;
+                transition: 0.5s;
+                padding: 1rem 0;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .burger {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .modal-content {
+                margin: 20% auto;
+            }
+        }
+        
+        #exploreModalAdviceList li {
+            margin-top: 10px;
+            font-weight: 700;
+        }
+
+        .toggle .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .toggle .line2 {
+            opacity: 0;
+        }
+
+        .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo"><a href="?page=index" aria-label="Подорожі контр страйком">Counter-Strike 2</a></div>
+            <ul class="nav-links">
+                <li><a href="?page=index" class="nav-link">Головна</a></li>
+                <li><a href="?page=places" class="nav-link">Інші карти</a></li>
+                <li><a href="?page=contacts" class="nav-link">Контакти</a></li>
+                <li><button id="loginBtn" class="nav-btn">Увійти</button></li>
+                <li><button id="registerBtn" class="nav-btn">Реєстрація</button></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content"></main>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://www.facebook.com" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i>Facebook</a>
+            <a href="https://www.instagram.com" target="_blank" class="social-icon"><i class="fab fa-instagram"></i>Instagram</a>
+            <a href="https://x.com" target="_blank" class="social-icon"><i class="fab fa-x-twitter"></i>X</a>
+        </div>
+        <p>© 2025 Подорожі контр страйком</p>
+    </footer>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <h2>Реєстрація</h2>
+            <form id="registerForm">
+                <input type="text" name="name" placeholder="Ім'я" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Пароль" required>
+                <button type="submit">Зареєструватись</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <h2>Вхід</h2>
+            <form id="loginForm">
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Пароль" required>
+                <button type="submit">Увійти</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="exploreModal" class="modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <h2>Про наш путівник</h2>
+            <p>Наш сайт допоможе вам ознайомитися з грою Counter-Strike 2. Ми пропонуємо:</p>
+            <ul id="exploreModalAdviceList">
+                <li>Детальні описи карт</li>
+                <li>Фотографії</li>
+                <li>Корисні поради</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function loadPage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const page = urlParams.get('page') || 'index';
+            const mainContent = document.getElementById('main-content');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(page)) {
+                    link.classList.add('active');
+                }
+            });
+
+            const pages = {
+                index: `
+                    <section class="hero">
+                        <h1 class="glow">Відкривай Counter-Strike 2 разом з нами</h1>
+                        <p>Ознайомся з легендарними картами, зброєю та атмосферою гри</p>
+                        <button id="exploreBtn" class="cta-btn">Дізнатись більше</button>
+                    </section>
+
+                    <section class="features">
+                        <div class="feature-card">
+                            <h2>Dust II — Класика жанру</h2>
+                            <p>Ідеально збалансована карта для швидких дуелей і продуманої тактики. Ніколи не старіє!</p>
+                            <img src="https://i.pinimg.com/736x/8e/32/03/8e32033c39747791039ffcba4538ef31.jpg" alt="Dust II" loading="lazy">
+                        </div>
+                        <div class="feature-card">
+                            <h2>Mirage — Серце турнірів</h2>
+                            <p>Улюблена карта професійних гравців. Командна робота тут вирішує все!</p>
+                            <img src="https://i.pinimg.com/736x/0d/37/a7/0d37a71ae954f78d05ad1195a3f8255c.jpg" alt="Mirage" loading="lazy">
+                        </div>
+                        <div class="feature-card">
+                            <h2>AWP — Зброя снайперів</h2>
+                            <p>Один точний постріл — мінус суперник. Не пробачає помилок. Ідеальний вибір для точних рук.</p>
+                            <img src="https://i.pinimg.com/736x/e7/28/4c/e7284c49ab0cf41ac75028095709e86d.jpg" alt="AWP" loading="lazy">
+                        </div>
+                    </section>
+                `,
+                places: `
+                    <h1 class="page-title">Ікони карти Counter-Strike 2</h1>
+                    <div class="places-grid">
+                        <div class="place-card">
+                            <img src="https://www.charlieintel.com/cdn-image/wp-content/uploads/2023/10/04/cs2-overpass-smoke-grenades-flash-lineups-1.jpg?width=1200&quality=60&format=auto" alt="Overpass" loading="lazy">
+                            <h2>Overpass</h2>
+                            <p>Багаторівнева карта з чудовими можливостями для тактичної гри й оборони.</p>
+                            <a href="https://counterstrike.fandom.com/wiki/Overpass" target="_blank" class="read-more">Детальніше</a>
+                        </div>
+                        <div class="place-card">
+                            <img src="https://csspot.org/_next/image/?url=https%3A%2F%2Fcsspot.org%2Fuploads%2Fnuke_0c0eb4d938.png&w=1920&q=75" alt="Nuke" loading="lazy">
+                            <h2>Nuke</h2>
+                            <p>Вертикальна структура та щільний контроль позицій роблять цю карту складною, але захопливою.</p>
+                            <a href="https://counterstrike.fandom.com/wiki/Nuke" target="_blank" class="read-more">Детальніше</a>
+                        </div>
+                        <div class="place-card">
+                            <img src="https://images.steamusercontent.com/ugc/2042997274847133077/8534B50A5A691EE7D3F1500E1CF03D41A37D03AC/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false" alt="Ancient" loading="lazy">
+                            <h2>Ancient</h2>
+                            <p>Нова карта з атмосферою джунглів і щільними проходами — виклик навіть для досвідчених гравців.</p>
+                            <a href="https://counterstrike.fandom.com/wiki/Ancient" target="_blank" class="read-more">Детальніше</a>
+                        </div>
+                    </div>
+                `,
+                contacts: `
+                    <h1 class="page-title">Зв'яжіться з командою CS2-путівника</h1>
+                    <div class="contact-container">
+                        <div class="contact-info">
+                            <h2>Наша база</h2>
+                            <p>CS2 HQ, вул. Mirage, 1337</p>
+                            <h2>Телефон</h2>
+                            <p>+380 (44) 700-33-77</p>
+                            <h2>Email</h2>
+                            <p>info@cs2-travel.com</p>
+                            <h2>Соціальні мережі</h2>
+                            <div class="social-links">
+                                <a href="https://www.facebook.com/" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i>Facebook</a>
+                                <a href="https://www.instagram.com/" target="_blank" class="social-icon"><i class="fab fa-instagram"></i>Instagram</a>
+                                <a href="https://x.com/" target="_blank" class="social-icon"><i class="fab fa-x-twitter"></i>X</a>
+                            </div>
+                        </div>
+                        <div class="contact-form">
+                            <h2>Напишіть нам</h2>
+                            <form id="contactForm">
+                                <input type="text" name="name" placeholder="Ваше ім'я" required>
+                                <input type="email" name="email" placeholder="Ваш Email" required>
+                                <textarea name="message" placeholder="Ваше повідомлення" required></textarea>
+                                <button type="submit">Надіслати</button>
+                            </form>
+                        </div>
+                    </div>
+                `
+            };
+
+            mainContent.innerHTML = pages[page] || pages.index;
+            initEventListeners();
+        }
+
+        function initEventListeners() {
+            const exploreBtn = document.getElementById('exploreBtn');
+            const exploreModal = document.getElementById('exploreModal');
+            if (exploreBtn && exploreModal) {
+                exploreBtn.addEventListener('click', () => {
+                    exploreModal.style.display = 'block';
+                });
+            }
+
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const name = contactForm.querySelector('input[name="name"]').value;
+                    const email = contactForm.querySelector('input[name="email"]').value;
+                    const message = contactForm.querySelector('textarea[name="message"]').value;
+
+                    if (!validateEmail(email)) {
+                        alert('Будь ласка, введіть коректний email!');
+                        return;
+                    }
+
+                    if (message.length < 10) {
+                        alert('Повідомлення повинно містити щонайменше 10 символів!');
+                        return;
+                    }
+
+                    alert(`Повідомлення відправлено, ${name}!`);
+                    contactForm.reset();
+                });
+            }
+        }
+
+        const burger = document.querySelector('.burger');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (burger && navLinks) {
+            burger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                burger.classList.toggle('toggle');
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    burger.classList.remove('toggle');
+                    const href = link.getAttribute('href');
+                    window.history.pushState({}, '', href);
+                    loadPage();
+                });
+            });
+        }
+
+        const registerBtn = document.getElementById('registerBtn');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerModal = document.getElementById('registerModal');
+        const loginModal = document.getElementById('loginModal');
+        const closeBtns = document.querySelectorAll('.close');
+
+        if (registerBtn && registerModal) {
+            registerBtn.addEventListener('click', () => {
+                registerModal.style.display = 'block';
+            });
+        }
+
+        if (loginBtn && loginModal) {
+            loginBtn.addEventListener('click', () => {
+                loginModal.style.display = 'block';
+            });
+        }
+
+        if (closeBtns) {
+            closeBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    btn.closest('.modal').style.display = 'none';
+                });
+            });
+        }
+
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
+            }
+        });
+
+        const validateEmail = (email) => {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        };
+
+        const validatePassword = (password) => {
+            return password.length >= 6;
+        };
+
+        const registerForm = document.getElementById('registerForm');
+        if (registerForm) {
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = registerForm.querySelector('input[name="name"]').value;
+                const email = registerForm.querySelector('input[name="email"]').value;
+                const password = registerForm.querySelector('input[name="password"]').value;
+
+                if (!validateEmail(email)) {
+                    alert('Будь ласка, введіть коректний email!');
+                    return;
+                }
+
+                if (!validatePassword(password)) {
+                    alert('Пароль повинен містити щонайменше 6 символів!');
+                    return;
+                }
+
+                alert(`Реєстрація успішна, ${name}!`);
+                registerForm.reset();
+                registerModal.style.display = 'none';
+            });
+        }
+
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = loginForm.querySelector('input[name="email"]').value;
+                const password = loginForm.querySelector('input[name="password"]').value;
+
+                if (!validateEmail(email)) {
+                    alert('Будь ласка, введіть коректний email!');
+                    return;
+                }
+
+                if (!validatePassword(password)) {
+                    alert('Пароль повинен містити щонайменше 6 символів!');
+                    return;
+                }
+
+                alert('Вхід успішний!');
+                loginForm.reset();
+                loginModal.style.display = 'none';
+            });
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        loadPage();
+        window.addEventListener('popstate', loadPage);
+    </script>
+</body>
+</html>
